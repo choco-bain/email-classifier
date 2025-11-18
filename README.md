@@ -76,7 +76,7 @@ COMMENT LANCER LE PROJET
 
 ETAPES 0:
 
-       CREE UNE CLE API GROQ, ET GMAIL
+       CREE UNE CLE API GROQ, ET GMAIL ajouter les bonnnes cles dans un fichier .env
 
 ETAPE 1:
 
