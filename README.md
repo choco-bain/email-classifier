@@ -72,5 +72,19 @@ Synthèse
 (Anodine → Critique)
 (résumé du mail)
 
+COMMENT LANCER LE PROJET
+
+ETAPES 0:
+
+       CREE UNE CLE API GROQ, ET GMAIL
+
+ETAPE 1:
+
+      pip install -r requirements.txt
+
+ETAPE 3:
+
+      python agent_ia.py
+
 
 
