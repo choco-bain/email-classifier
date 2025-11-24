@@ -12,9 +12,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# -----------------------
 # Configuration API
-# -----------------------
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 if not GROQ_API_KEY:
     raise RuntimeError("Veuillez définir GROQ_API_KEY dans .env")
@@ -30,9 +28,7 @@ TOKEN_PATH = Path.home() / ".token.json"
 CLIENT_ID = os.environ.get("GMAIL_CLIENT_ID", "<VOTRE_CLIENT_ID>")
 CLIENT_SECRET = os.environ.get("GMAIL_CLIENT_SECRET", "<VOTRE_CLIENT_SECRET>")
 
-# -----------------------
 # Gestion des credentials
-# -----------------------
 def get_credentials():
     creds = None
     if TOKEN_PATH.exists():
@@ -55,9 +51,7 @@ def get_credentials():
             f.write(creds.to_json())
     return creds
 
-# -----------------------
 # Classification d'un email
-# -----------------------
 def classify_email(email_text):
     """
     Retourne un dict avec keys : category, type, summary
@@ -71,7 +65,7 @@ def classify_email(email_text):
     Email : {email_text}
     """
     resp = client.chat.completions.create(
-        model="openai/gpt-oss-20b",
+        model="openai/gpt-oss-120b",
         messages=[
             {"role": "system", "content": "Tu es un classifieur d'emails."},
             {"role": "user", "content": prompt}
@@ -93,9 +87,7 @@ def classify_email(email_text):
     except json.JSONDecodeError:
         return {"category": "unknown", "type": "unknown", "summary": content}
 
-# -----------------------
 # Création d’un nouveau Google Sheet unique
-# -----------------------
 def create_new_sheet(drive_service):
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     sheet_name = f"Cheick"
@@ -105,9 +97,7 @@ def create_new_sheet(drive_service):
     print(f"✅ Nouveau Google Sheet créé : {sheet_name} (ID: {sheet_id})")
     return sheet_id
 
-# -----------------------
 # Main
-# -----------------------
 def main():
     creds = get_credentials()
     gmail_service = build("gmail", "v1", credentials=creds)
@@ -121,7 +111,7 @@ def main():
     profile = gmail_service.users().getProfile(userId="me").execute()
     print("Compte connecté:", profile.get("emailAddress"))
 
-    results = gmail_service.users().messages().list(userId="me", maxResults=50).execute()
+    results = gmail_service.users().messages().list(userId="me", maxResults=500).execute()
     messages = results.get("messages", [])
 
     # Préparer les données

@@ -16,3 +16,7 @@ tâches :
         run: | 
           ls ${{ github.workspace }} 
       - run: echo "🍏 Le statut de cette tâche est ${{ job.status }}."
+<<<<<<< HEAD
+=======
+
+>>>>>>> e3cfdd4 (github actions test)
